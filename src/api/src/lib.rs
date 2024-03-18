@@ -1,5 +1,7 @@
 mod login;
 mod utils;
+mod crypto_util;
+
 use std::io::{self, Write};
 use std::path::Path;
 use std::process;
