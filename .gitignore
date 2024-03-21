@@ -20,3 +20,5 @@ Cargo.lock
 rust-project.json
 
 .idea
+.idea/
+/.idea
