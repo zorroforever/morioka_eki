@@ -1,10 +1,10 @@
-mod login;
-mod utils;
-mod crypto_util;
+mod util;
+mod service;
 
 use std::io::{self, Write};
 use std::path::Path;
 use std::process;
+
 
 fn load_env() {
     dotenv::dotenv().ok();
@@ -23,7 +23,6 @@ fn load_translation() -> gettext::Catalog {
     gettext::Catalog::empty()
 }
 
-
 #[tokio::main]
 pub async fn main() -> io::Result<()> {
     load_env();
@@ -33,13 +32,14 @@ pub async fn main() -> io::Result<()> {
     loop {
         print!("> ");
         io::stdout().flush()?;
-
         let mut input = String::new();
         io::stdin().read_line(&mut input)?;
-
         match input.trim() {
             "login" => {
-                login::handle(&catalog).await;
+                service::login::handle(&catalog).await.expect("login error!");
+            }
+            "ck" => {
+                service::check_token::handle(&catalog).await.expect("login error!");
             }
             "exit" => {
                 println!("{}", catalog.gettext("Exiting program."));

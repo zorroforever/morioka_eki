@@ -1,3 +1,3 @@
 fn main() {
-    morioka_eki_api::main();
+    let _ = morioka_eki_api::main();
 }

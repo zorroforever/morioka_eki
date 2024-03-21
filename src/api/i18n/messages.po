@@ -26,5 +26,11 @@ msgstr "未知命令，请重新输入！"
 msgid "Request failed."
 msgstr "请求失败。"
 
+msgid "token is valid."
+msgstr "token是有效的。"
+
+msgid "token error."
+msgstr "token是错误的。"
+
 msgid "Exiting program."
 msgstr "程序退出。"
