@@ -1,10 +1,10 @@
 My simple RPG client:
-1. written by RUST.
-2. a terminal program.
-3. action base on send commands.
+1. Written in RUST.
+2. A terminal program.
+3. Action base on send commands.
 ```
 login
 exit
 ```
 
-4. connect to server by TCP/IP.
+4. This program connects to the server using the TCP/IP protocol..
