@@ -23,15 +23,20 @@ fn load_translation() -> gettext::Catalog {
     gettext::Catalog::empty()
 }
 
+fn init()-> (){
+    let base_url = env::var("BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:8000".to_string());
+    let api_url = env::var("API_UNION").unwrap_or_else(|_| "/logic/".to_string());
+    let api_union_url = format!("{}{}",base_url,api_url);
+    local_storage_util::set_global_api_url(api_union_url);
+    local_storage_util::set_global_base_url(base_url);
+}
+
 #[tokio::main]
 pub async fn main() -> io::Result<()> {
     load_env();
     let catalog = load_translation();
     println!("{}", catalog.gettext("Welcome to luna world  program!"));
-    let base_url = env::var("BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:8000".to_string());
-    let api_url = env::var("API_UNION").unwrap_or_else(|_| "/logic/".to_string());
-    let api_union_url = format!("{}{}",base_url,api_url);
-    local_storage_util::set_global_api_url(api_union_url);
+    init();
     loop {
         print!("> ");
         io::stdout().flush()?;
