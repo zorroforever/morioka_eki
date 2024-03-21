@@ -34,3 +34,9 @@ msgstr "token是错误的。"
 
 msgid "Exiting program."
 msgstr "程序退出。"
+
+msgid "Login success."
+msgstr "登录成功。"
+
+msgid "Login failed."
+msgstr "登录失败。"
