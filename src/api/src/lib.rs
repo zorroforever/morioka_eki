@@ -47,7 +47,10 @@ pub async fn main() -> io::Result<()> {
                 logic::command::login::handle(&catalog).await.expect("login error!");
             }
             "ck" => {
-                logic::command::check_token::handle(&catalog).await.expect("login error!");
+                logic::command::check_token::handle(&catalog).await.expect("check error!");
+            }
+            "mk_character" => {
+                logic::command::create_character::handle(&catalog).await.expect("mk_character error!");
             }
             "exit" => {
                 println!("{}", catalog.gettext("Exiting program."));
