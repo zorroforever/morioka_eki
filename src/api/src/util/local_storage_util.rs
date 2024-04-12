@@ -5,6 +5,8 @@ pub struct LocalStorage {
     pub token: Option<String>,
     pub base_url:Option<String>,
     pub api_url:Option<String>,
+    pub account_id: Option<i32>,
+    pub character_id: Option<i32>,
 }
 
 impl LocalStorage {
@@ -12,7 +14,9 @@ impl LocalStorage {
         LocalStorage {
             token: None,
             base_url: None,
-            api_url:None
+            api_url:None,
+            account_id: None,
+            character_id: None,
         }
     }
 
@@ -38,6 +42,22 @@ impl LocalStorage {
 
     pub fn get_base_url(&self) -> Option<&String> {
         self.base_url.as_ref()
+    }
+
+    pub fn set_account_id(&mut self, account_id: i32) {
+        self.account_id = Some(account_id);
+    }
+
+    pub fn get_account_id(&self) -> Option<&i32> {
+        self.account_id.as_ref()
+    }
+
+    pub fn set_character_id(&mut self, character_id: i32) {
+        self.character_id = Some(character_id);
+    }
+
+    pub fn get_character_id(&self) -> Option<&i32> {
+        self.character_id.as_ref()
     }
 }
 
@@ -91,3 +111,25 @@ pub fn get_global_base_url() -> String {
     storage.get_base_url().cloned().unwrap_or("".to_string())
 }
 
+pub fn set_global_account_id(account_id: i32) {
+    let mut storage = LOCAL_STORAGE.lock().unwrap();
+    storage.set_account_id(account_id);
+}
+
+
+pub fn get_global_account_id() -> i32 {
+    let storage = LOCAL_STORAGE.lock().unwrap();
+    storage.get_account_id().cloned().unwrap_or(-9999)
+}
+
+
+pub fn set_global_character_id(character_id: i32) {
+    let mut storage = LOCAL_STORAGE.lock().unwrap();
+    storage.set_character_id(character_id);
+}
+
+
+pub fn get_global_character_id() -> i32 {
+    let storage = LOCAL_STORAGE.lock().unwrap();
+    storage.get_character_id().cloned().unwrap_or(-9999)
+}
