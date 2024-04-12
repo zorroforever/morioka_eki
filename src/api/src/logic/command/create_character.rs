@@ -22,19 +22,21 @@ pub(crate) async fn handle(
     io::stdout().flush()?;
     io::stdin().read_line(&mut input_str1)?;
     ch_nickname = input_str1.trim().to_string();
-
+    let acc_id = local_storage_util::get_global_account_id();
     let url = local_storage_util::get_global_union_api_url_with_token();
     let p_data = json!(
         {
             "api_key":"api_create_character",
             "data": {
+                    "aid": acc_id,
                     "ch_name": ch_name,
                     "ch_nickname": ch_nickname
             }
         }
     );
     if let Ok(_v) = util::http_util::post(&url, p_data).await {
-        println!("{}", catalog.gettext("token is valid."));
+        // println!("{}", catalog.gettext("token is valid."));
+        println!("{}",_v);
     } else {
         println!("{}", catalog.gettext("token error."));
     }

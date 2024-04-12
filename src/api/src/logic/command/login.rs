@@ -34,6 +34,9 @@ pub(crate) async fn handle(
         Ok(token) => {
             let parsed_json: Result<Value, _> = serde_json::from_str(&token);
             if let Ok(json) = parsed_json {
+                if let Some(aid) = json.get("aid") {
+                    local_storage_util::set_global_account_id(aid.as_i64().map(|v| v as i32).unwrap());
+                }
                 if let Some(token_value) = json.get("token") {
                     if let Some(token_str) = token_value.as_str() {
                         local_storage_util::set_global_token(token_str.to_string());
