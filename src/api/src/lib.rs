@@ -55,6 +55,12 @@ pub async fn main() -> io::Result<()> {
             "ls_ch" => {
                 logic::command::list_character::handle(&catalog).await.expect("ls_ch error!");
             }
+            "sel_ch" => {
+                logic::command::select_character::handle(&catalog).await.expect("sel_ch error!");
+            }
+            "show_up" => {
+                logic::command::show_up::handle(&catalog).await.expect("show_up error!");
+            }
             "exit" => {
                 println!("{}", catalog.gettext("Exiting program."));
                 process::exit(0);

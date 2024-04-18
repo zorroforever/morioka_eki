@@ -1,12 +1,32 @@
 use std::sync::Mutex;
 use lazy_static::lazy_static;
+#[derive(Clone)]
+pub struct CharacterPosition {
+    pub x:i32,
+    pub y:i32,
+    pub z:i32,
+    pub map_id:i32,
+}
 
+impl CharacterPosition {
+    pub fn new() -> Self {
+        CharacterPosition{
+            x: 0,
+            y: 0,
+            z: 0,
+            map_id: -1,
+        }
+    }
+}
+
+#[derive(Clone)]
 pub struct LocalStorage {
     pub token: Option<String>,
     pub base_url:Option<String>,
     pub api_url:Option<String>,
     pub account_id: Option<i32>,
     pub character_id: Option<i32>,
+    pub character_position:Option<CharacterPosition>,
 }
 
 impl LocalStorage {
@@ -17,6 +37,7 @@ impl LocalStorage {
             api_url:None,
             account_id: None,
             character_id: None,
+            character_position: Some(CharacterPosition::new()),
         }
     }
 
@@ -58,6 +79,13 @@ impl LocalStorage {
 
     pub fn get_character_id(&self) -> Option<&i32> {
         self.character_id.as_ref()
+    }
+    pub fn set_character_position(&mut self, character_position: CharacterPosition) {
+        self.character_position = Some(character_position);
+    }
+
+    pub fn get_character_position(&self) -> Option<&CharacterPosition> {
+        self.character_position.as_ref()
     }
 }
 
@@ -132,4 +160,16 @@ pub fn set_global_character_id(character_id: i32) {
 pub fn get_global_character_id() -> i32 {
     let storage = LOCAL_STORAGE.lock().unwrap();
     storage.get_character_id().cloned().unwrap_or(-9999)
+}
+
+
+pub fn set_global_character_position(character_position: CharacterPosition) {
+    let mut storage = LOCAL_STORAGE.lock().unwrap();
+    storage.set_character_position(character_position);
+}
+
+
+pub fn get_global_character_position() -> CharacterPosition {
+    let storage = LOCAL_STORAGE.lock().unwrap();
+    storage.get_character_position().cloned().unwrap_or(CharacterPosition::new())
 }
