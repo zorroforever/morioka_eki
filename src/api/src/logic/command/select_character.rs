@@ -17,6 +17,8 @@ pub(crate) async fn handle(
     ch_id = input_str.trim().to_string();
     if let Ok(cid) = ch_id.parse::<i32>() {
         local_storage_util::set_global_character_id(cid);
+        // TODO init character on the map.
+        // set character position.
         println!("{} is selected.",cid);
     } else {
         println!("{}", catalog.gettext("character id is un valid."));
