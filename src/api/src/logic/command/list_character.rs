@@ -1,6 +1,6 @@
 use std::io;
 use gettext::Catalog;
-use serde_json::json;
+use serde_json::{json, Value};
 use crate::util;
 use crate::util::local_storage_util;
 
@@ -18,9 +18,26 @@ pub(crate) async fn handle(
         }
     );
     if let Ok(_v) = util::http_util::post(&url, p_data).await {
-        println!("{}",_v);
+        let json_array: Value = serde_json::from_str(&_v)?;
+
+        if let Value::Array(array) = json_array {
+            for json_object in array {
+                print_json_object(&json_object);
+                println!("---"); // 分隔每个 JSON 对象
+            }
+        } else {
+            println!("Expected a JSON array");
+        }
     } else {
         println!("{}", catalog.gettext("please create one, use command [mk_ch]."));
     }
     Ok(())
+}
+
+fn print_json_object(json: &Value) {
+    if let Value::Object(map) = json {
+        for (key, value) in map {
+            println!("{}: {}", key, value);
+        }
+    }
 }

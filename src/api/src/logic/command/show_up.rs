@@ -11,11 +11,11 @@ pub(crate) async fn handle(
     let url = local_storage_util::get_global_union_api_url_with_token();
     let acc_id = local_storage_util::get_global_account_id();
     let ch_id = local_storage_util::get_global_character_id();
-    print!("{}", catalog.gettext("Please enter number: "));
-    print!("{}{}", "1.", catalog.gettext("block on up."));
-    print!("{}{}", "2.", catalog.gettext("block on down."));
-    print!("{}{}", "3.", catalog.gettext("block on left."));
-    print!("{}{}", "4.", catalog.gettext("block on right."));
+    println!("{}", catalog.gettext("Please enter number: "));
+    println!("{}{}", "1.", catalog.gettext("block on up."));
+    println!("{}{}", "2.", catalog.gettext("block on down."));
+    println!("{}{}", "3.", catalog.gettext("block on left."));
+    println!("{}{}", "4.", catalog.gettext("block on right."));
     io::stdout().flush()?;
     let mut sel_num = String::new();
     io::stdin().read_line(&mut sel_num)?;

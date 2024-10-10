@@ -41,6 +41,12 @@ pub(crate) async fn handle(
                     if let Some(token_str) = token_value.as_str() {
                         local_storage_util::set_global_token(token_str.to_string());
                         println!("{}", catalog.gettext("Login success."));
+                        println!("{}", catalog.gettext("Welcome! Command List:"));
+                        println!("{}", catalog.gettext(" mk_ch: make a new character."));
+                        println!("{}", catalog.gettext(" ls_ch: list all characters."));
+                        println!("{}", catalog.gettext(" sel_ch: select a character."));
+                        println!("{}", catalog.gettext(" show: show env around the character. "));
+                        println!("{}", catalog.gettext(" exit: exit the program."));
                     }
                 }
             }
